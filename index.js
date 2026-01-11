@@ -8,12 +8,14 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.NEXT_PUBLIC_ORIGIN || "http://localhost:3000",
         methods: ["GET", "POST"]
     }
 });
 
-app.use(cors());
+app.use(cors({
+    origin: process.env.NEXT_PUBLIC_ORIGIN || "http://localhost:3000"
+}));
 app.use(express.json());
 
 app.post("/notify", (req, res) => {
